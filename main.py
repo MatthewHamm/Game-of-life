@@ -8,7 +8,7 @@ class life(object):
     self.root = Tk()
     self.canvas = Canvas(self.root, width=400, height = 400)
     self.canvas.pack()
-    
+    self.animabool=True
     self.initialstate=np.random.randint(2,size=(40,40))
     self.liveindex=np.where(self.initialstate==1)
     self.livelist=[]
@@ -16,6 +16,7 @@ class life(object):
       self.livelist.append(self.canvas.create_rectangle(10*self.liveindex[0][i],10*self.liveindex[1][i],9+10*self.liveindex[0][i],9+10*self.liveindex[1][i], fill='black'))
     self.canvas.pack()
     self.root.bind('<ButtonPress-1>', self.addlive)
+    self.root.bind('<Key-space>', self.pause)
     self.root.after(0, self.animation)
     
     self.root.mainloop()
@@ -39,7 +40,7 @@ class life(object):
     
 
   def animation(self):
-    while True:
+    while self.animabool:
       self.liveindex=np.where(self.initialstate==1)
       self.livelist=[]
       for i in range(0,len(self.liveindex[0])):
@@ -58,7 +59,17 @@ class life(object):
     if str(event.type) == 'ButtonPress':
       print(round((event.x-5)/10),round((event.y-5)/10))
       self.initialstate[round((event.x-5)/10),round((event.y-5)/10)]=1
-      self.root.after(0, self.animation)
+      self.livelist.append(self.canvas.create_rectangle(10*round((event.x-5)/10),10*round((event.y-5)/10),10+10*round((event.x-5)/10),10+10*round((event.y-5)/10), fill='black'))
+  def pause(self, event):
+    
+    self.animabool=not(self.animabool)
+    self.animation()
+    print('here')
+
+    
+      
+  
+    
       
 
     
