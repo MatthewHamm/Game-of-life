@@ -46,6 +46,7 @@ class life(object):
       for i in range(0,len(self.liveindex[0])):
         self.livelist.append(self.canvas.create_rectangle(10*self.liveindex[0][i],10*self.liveindex[1][i],10+10*self.liveindex[0][i],10+10*self.liveindex[1][i], fill='black'))
       self.canvas.update()
+      time.sleep(0.05)
       self.canvas.delete('all')
       
       
@@ -53,18 +54,21 @@ class life(object):
       
       
       
-      time.sleep(0.05)
+      
   def addlive(self,event):
     
     if str(event.type) == 'ButtonPress':
       print(round((event.x-5)/10),round((event.y-5)/10))
       self.initialstate[round((event.x-5)/10),round((event.y-5)/10)]=1
       self.livelist.append(self.canvas.create_rectangle(10*round((event.x-5)/10),10*round((event.y-5)/10),10+10*round((event.x-5)/10),10+10*round((event.y-5)/10), fill='black'))
+      self.canvas.update()
   def pause(self, event):
     
     self.animabool=not(self.animabool)
     self.animation()
-    
+    for i in range(0,len(self.liveindex[0])):
+        self.livelist.append(self.canvas.create_rectangle(10*self.liveindex[0][i],10*self.liveindex[1][i],10+10*self.liveindex[0][i],10+10*self.liveindex[1][i], fill='black'))
+    self.canvas.update()
     print('here')
 
     
