@@ -27,13 +27,13 @@ class life(object):
     
     
     for i in range(len(liveindex[0])):
-      livecount=np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:2,liveindex[1][i]])+np.sum(self.initialstate[liveindex[0][i],liveindex[1][i]-1:liveindex[1][i]+2:2])
+      livecount=np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:2,liveindex[1][i]])+np.sum(self.initialstate[liveindex[0][i],liveindex[1][i]-1:liveindex[1][i]+2:2])+np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:2,liveindex[1][i]-1:liveindex[1][i]+2:2])+np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:-2,liveindex[1][i]-1:liveindex[1][i]+2:2])
       
       
       finalstate[liveindex[0][i],liveindex[1][i]]=1*(livecount==2 or livecount==3)
       
     for i in range(len(deadindex[0])):
-      deadcount=np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:2,deadindex[1][i]])+np.sum(self.initialstate[deadindex[0][i],deadindex[1][i]-1:deadindex[1][i]+2:2])
+      deadcount=np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:2,deadindex[1][i]])+np.sum(self.initialstate[deadindex[0][i],deadindex[1][i]-1:deadindex[1][i]+2:2])+np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:2,deadindex[1][i]-1:deadindex[1][i]+2:2])+np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:-2,deadindex[1][i]-1:deadindex[1][i]+2:2])
       finalstate[deadindex[0][i],deadindex[1][i]]=1*(deadcount==3)
     return finalstate
     
@@ -69,7 +69,7 @@ class life(object):
     for i in range(0,len(self.liveindex[0])):
         self.livelist.append(self.canvas.create_rectangle(10*self.liveindex[0][i],10*self.liveindex[1][i],10+10*self.liveindex[0][i],10+10*self.liveindex[1][i], fill='black'))
     self.canvas.update()
-    print('here')
+    print('pause')
 
     
       
