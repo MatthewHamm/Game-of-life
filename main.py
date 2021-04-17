@@ -9,7 +9,7 @@ class life(object):
     self.canvas = Canvas(self.root, width=400, height = 400)
     self.canvas.pack()
     self.animabool=False
-    self.initialstate=np.zeros((40,40))#np.random.randint(2,size=(40,40))
+    self.initialstate=np.random.randint(2,size=(40,40))
     self.liveindex=np.where(self.initialstate==1)
     self.livelist=[]
     for  i in range(0,len(self.liveindex[0])):
@@ -24,16 +24,17 @@ class life(object):
     finalstate=np.zeros(self.initialstate.shape)
     liveindex=np.where(self.initialstate==1)
     deadindex=np.where(self.initialstate==0)
+    tempstate=np.tile(self.initialstate,(3,3))
     
     
     for i in range(len(liveindex[0])):
-      livecount=np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:2,liveindex[1][i]])+np.sum(self.initialstate[liveindex[0][i],liveindex[1][i]-1:liveindex[1][i]+2:2])+np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:2,liveindex[1][i]-1:liveindex[1][i]+2:2])+np.sum(self.initialstate[liveindex[0][i]-1:liveindex[0][i]+2:-2,liveindex[1][i]-1:liveindex[1][i]+2:2])
+      livecount=np.sum(tempstate[liveindex[0][i]+39:liveindex[0][i]+42:2,liveindex[1][i]+40])+np.sum(tempstate[liveindex[0][i]+40,liveindex[1][i]+39:liveindex[1][i]+42:2])+np.sum(tempstate[liveindex[0][i]+39:liveindex[0][i]+42:2,liveindex[1][i]+39:liveindex[1][i]+42:2])+np.sum(tempstate[liveindex[0][i]+39:liveindex[0][i]+42:-2,liveindex[1][i]+39:liveindex[1][i]+42:2])
       
       
       finalstate[liveindex[0][i],liveindex[1][i]]=1*(livecount==2 or livecount==3)
       
     for i in range(len(deadindex[0])):
-      deadcount=np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:2,deadindex[1][i]])+np.sum(self.initialstate[deadindex[0][i],deadindex[1][i]-1:deadindex[1][i]+2:2])+np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:2,deadindex[1][i]-1:deadindex[1][i]+2:2])+np.sum(self.initialstate[deadindex[0][i]-1:deadindex[0][i]+2:-2,deadindex[1][i]-1:deadindex[1][i]+2:2])
+      deadcount=np.sum(tempstate[deadindex[0][i]+39:deadindex[0][i]+42:2,deadindex[1][i]+40])+np.sum(tempstate[deadindex[0][i]+40,deadindex[1][i]+39:deadindex[1][i]+42:2])+np.sum(tempstate[deadindex[0][i]+39:deadindex[0][i]+42:2,deadindex[1][i]+39:deadindex[1][i]+42:2])+np.sum(tempstate[deadindex[0][i]+39:deadindex[0][i]+42:-2,deadindex[1][i]+39:deadindex[1][i]+42:2])
       finalstate[deadindex[0][i],deadindex[1][i]]=1*(deadcount==3)
     return finalstate
     
